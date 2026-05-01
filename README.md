@@ -1,6 +1,7 @@
 <h1 align="center">Hi 👋, I'm Aman Kumar Chhari</h1>
+<h2 align="center">call sign TIPSY</h2>
 <p align="center">
-  <strong>Full Stack Developer | Problem Solver | Tech Enthusiast</strong>
+  <strong>Full Stack Developer </strong>
 </p>
 
 <p align="center">
