@@ -1,67 +1,119 @@
-<h1 align="center">Hi 👋, I'm Aman Kumar Chhari</h1>
-<h2 align="center">call sign TIPSY</h2>
-<p align="center">
-  <strong>Full Stack Developer </strong>
-</p>
+
+<h1 align="center">$ whoami</h1>
+
+<h2 align="center">Aman Kumar Chhari</h2>
+<h3 align="center">CALLSIGN: TIPSY</h3>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=chhari07&label=Profile%20views&color=0e75b6&style=flat-square" alt="chhari07" />
-  <img src="https://img.shields.io/twitter/follow/chhari07?style=flat-square&logo=twitter" alt="Twitter" />
+  Full Stack Developer | Linux User | Open Source Enthusiast 
 </p>
-
----
-
-### 👤 About Me
-
-- 👨‍💻 **Portfolio:** All my projects are live at [github.com/chhari07](https://github.com/chhari07)
-- 📧 **Contact:** Reach me at **amankumarchhari@gmail.com**
-- ⚡ **Fun Fact:** I don't just write code; I build digital experiences.
-
-### 🌐 Connect with me
-<p align="left">
-  <a href="https://www.linkedin.com/in/aman-chhari-9613bb235/" target="blank">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
-  </a>
-  <a href="https://www.instagram.com/aman_chhari_07/" target="blank">
-    <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" />
-  </a>
-</p>
-
----
-
-### 🛠 Languages and Tools
-
-<p align="left">
-  <!-- Frontend -->
-  <img src="https://skillicons.dev/icons?i=html,css,js,react,nextjs,tailwind,bootstrap" alt="Frontend" /><br>
-  <!-- Backend & DB -->
-  <img src="https://skillicons.dev/icons?i=nodejs,express,nestjs,mongodb,mysql,firebase,graphql" alt="Backend" /><br>
-  <!-- Languages & Tools -->
-  <img src="https://skillicons.dev/icons?i=cpp,c,java,py,linux,git,postman,nginx,blender" alt="Tools" />
-</p>
-
----
-
-### 📊 Github Stats
-
-<div align="center">
-  <table border="0">
-    <tr>
-      <td>
-        <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs?username=chhari07&show_icons=true&locale=en&layout=compact&theme=vision-friendly-dark" />
-      </td>
-      <td>
-        <img height="180em" src="https://github-readme-stats.vercel.app/api?username=chhari07&show_icons=true&locale=en&theme=vision-friendly-dark" />
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <img width="100%" src="https://github-readme-streak-stats.herokuapp.com/?user=chhari07&theme=vision-friendly-dark" />
-      </td>
-    </tr>
-  </table>
-</div>
 
 <p align="center">
-  <img src="https://github-profile-trophy.vercel.app/?username=chhari07&theme=onedark&column=7" alt="Trophy" />
+  <img src="https://komarev.com/ghpvc/?username=chhari07&label=VISITORS&color=00ff00&style=flat-square" alt="profile views"/>
 </p>
+
+<hr>
+
+<h3>$ cat about.txt</h3>
+
+```bash
+Name      : Aman Kumar Chhari
+Callsign  : TIPSY
+Role      : Full Stack Developer
+Location  : India
+Focus     : Web Development, AI Applications, Open Source
+Mission   : Building scalable digital experiences
+````
+
+```bash
+OPERANT.ai
+ALL-FIT
+IMAGINERA
+Recipe-App
+Weather-App
+Blog-React-App
+ChatBot
+AI Image Generator
+AI Plagiarism Checker
+AI Sudoku Solver
+```
+
+```bash
+Email    : amankumarchhari@gmail.com
+Github   : https://github.com/chhari07
+LinkedIn : https://www.linkedin.com/in/aman-chhari-9613bb235
+Instagram: https://www.instagram.com/aman_chhari_07
+```
+
+```text
+skills
+├── frontend
+│   ├── HTML
+│   ├── CSS
+│   ├── JavaScript
+│   ├── React
+│   ├── Next.js
+│   ├── TailwindCSS
+│   └── Bootstrap
+│
+├── backend
+│   ├── Node.js
+│   ├── Express.js
+│   ├── NestJS
+│   ├── GraphQL
+│   └── Firebase
+│
+├── database
+│   ├── MongoDB
+│   └── MySQL
+│
+├── programming
+│   ├── javascript
+│   ├── python
+│   
+│  
+│
+└── tools
+    ├── Linux
+    ├── Git
+    ├── Postman
+    ├── Nginx
+    └── Blender
+```
+
+```yaml
+User: Aman Kumar Chhari
+Alias: TIPSY
+OS: Linux / Windows
+Shell: bash
+Editor: VS Code
+Stack: MERN + Next.js
+Interests:
+  - Cyber Security
+  - Artificial Intelligence
+  - Open Source
+  - tech based ideas 
+```
+
+```bash
+On branch main
+
+Currently Building:
+✔ OPERANT.ai
+✔ Open Source Projects
+
+Learning:
+✔ Advanced Backend Systems
+✔ AI & Machine Learning
+✔ Cyber Security
+```
+
+```bash
+[aman@github ~]$ sudo make impact
+
+Building projects...
+Pushing code...
+Learning continuously...
+
+Status: SUCCESS
+```
