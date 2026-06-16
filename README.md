@@ -1,5 +1,5 @@
 
-<h1 align="center">$ whoami</h1>
+
 
 <h2 align="center">Aman Kumar Chhari</h2>
 <h3 align="center">CALLSIGN: TIPSY</h3>
