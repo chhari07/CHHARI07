@@ -185,15 +185,15 @@ class Tipsy:
 <tr>
 <td align="center" width="25%">
   <img src="assets/beyond-1.jpg" width="100%" /><br/>
-  <sub><b>Defence Prep</b><br/>AFCAT · CDS</sub>
-</td>
-<td align="center" width="25%">
-  <img src="assets/beyond-2.jpg" width="100%" /><br/>
   <sub><b>OSINT</b><br/>Cyber criminology</sub>
 </td>
 <td align="center" width="25%">
-  <img src="assets/beyond-3.jpg" width="100%" /><br/>
+  <img src="assets/beyond-2.jpg" width="100%" /><br/>
   <sub><b>Anime</b><br/>Dr. Stone · Steins;Gate</sub>
+</td>
+<td align="center" width="25%">
+  <img src="assets/beyond-3.jpg" width="100%" /><br/>
+  <sub><b>Design</b><br/>Visual systems · UI</sub>
 </td>
 <td align="center" width="25%">
   <img src="assets/beyond-4.jpg" width="100%" /><br/>
