@@ -177,34 +177,13 @@ class Tipsy:
         return "Ship the boring infrastructure. The demo is the easy part."
 ```
 
-<!-- ═══════════════════════════════ BEYOND ═══════════════════════════════ -->
 
-## `06` Beyond Code
 
-<table align="center">
-<tr>
-<td align="center" width="25%">
-  <img src="assets/beyond-1.jpg" width="100%" /><br/>
-  <sub><b>OSINT</b><br/>Cyber criminology</sub>
-</td>
-<td align="center" width="25%">
-  <img src="assets/beyond-2.jpg" width="100%" /><br/>
-  <sub><b>Anime</b><br/>Dr. Stone · Steins;Gate</sub>
-</td>
-<td align="center" width="25%">
-  <img src="assets/beyond-3.jpg" width="100%" /><br/>
-  <sub><b>Design</b><br/>Visual systems · UI</sub>
-</td>
-<td align="center" width="25%">
-  <img src="assets/beyond-4.jpg" width="100%" /><br/>
-  <sub><b>Side Projects</b><br/>Learning by building</sub>
-</td>
-</tr>
-</table>
+
 
 <!-- ═══════════════════════════════ CONNECT ═══════════════════════════════ -->
 
-## `07` Let's Connect
+## `06` Let's Connect
 
 <div align="center">
 
