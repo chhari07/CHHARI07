@@ -1,4 +1,4 @@
-a<!-- ═══════════════════════════ BANNER ═══════════════════════════ -->
+<!-- ═══════════════════════════ BANNER ═══════════════════════════ -->
 <p align="center">
   <img src="./assets/banner.png" alt="npm run build — let's just make one more change" width="100%"/>
 </p>
