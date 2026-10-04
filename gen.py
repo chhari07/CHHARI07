@@ -127,3 +127,38 @@ for i, (short, bg, fg, label, lvl) in enumerate(DOCK):
     s += f'<rect x="{x+44}" y="{y+22}" width="120" height="5" rx="2.5" fill="{LINE}"/><rect x="{x+44}" y="{y+22}" width="{120*lvl/100:.0f}" height="5" rx="2.5" fill="{BRIGHT}"/>'
 (OUT / "about.svg").write_text(svg(W2, H2, s))
 print("ok")
+
+# ---------- skills bar (brand icons from simple-icons, CC0) ----------
+import re
+ICON_DIR = Path(__file__).parent / "icons"
+LIGHT = {"F7DF1E", "FCC624", "00FF74", "3DDC84", "61DAFB", "3FCF8E", "00C7B7", "06B6D4"}  # brand colours that need a dark glyph
+GROUPS = [
+    ("AI / LLM", [("claude", "Claude", "D97757"), ("anthropic", "Anthropic", "191919"), ("openai", "OpenAI", "111111"), ("zod", "Zod", "408AFF")]),
+    ("Languages", [("typescript", "TypeScript", "3178C6"), ("javascript", "JavaScript", "F7DF1E"), ("postgresql", "SQL", "4169E1")]),
+    ("Frontend", [("nextdotjs", "Next.js", "111111"), ("react", "React", "61DAFB"), ("tailwindcss", "Tailwind", "06B6D4"), ("shadcnui", "shadcn/ui", "111111"),
+                  ("framer", "Framer", "0055FF"), ("googlechrome", "Chrome MV3", "4285F4"), ("leaflet", "Leaflet", "199900")]),
+    ("Backend", [("nodedotjs", "Node.js", "5FA04E"), ("express", "Express", "111111"), ("clerk", "Clerk", "6C47FF"), ("razorpay", "Razorpay", "0C2451"),
+                 ("supabase", "Supabase", "3FCF8E"), ("whatsapp", "WhatsApp", "25D366")]),
+    ("Data & infra", [("postgresql", "Postgres", "4169E1"), ("firebase", "Firebase", "DD2C00"), ("mongodb", "MongoDB", "47A248"), ("vitest", "Vitest", "00FF74"),
+                      ("githubactions", "Actions", "2088FF"), ("vercel", "Vercel", "111111"), ("netlify", "Netlify", "00C7B7"), ("git", "Git", "F03C2E")]),
+    ("Mobile & more", [("capacitor", "Capacitor", "119EFF"), ("android", "Android", "3DDC84"), ("figma", "Figma", "F24E1E"), ("linux", "Linux", "FCC624")]),
+]
+SW, ROW, TOP = 880, 86, 92
+SH = TOP + ROW * len(GROUPS) + 18
+k = canvas(SW, SH)
+k += eyebrow(32, 46, "Skills & tools")
+k += text(32, 76, "What I build with", 22, BRIGHT, 600, SANS, "-0.03em")
+k += eyebrow(SW - 32, 46, f"{sum(len(g[1]) for g in GROUPS)} tools").replace('text-anchor="start"', 'text-anchor="end"')
+for r, (group, items) in enumerate(GROUPS):
+    y = TOP + r * ROW
+    k += f'<line x1="32" y1="{y}" x2="{SW-32}" y2="{y}" stroke="{LINE}"/>'
+    k += eyebrow(32, y + 34, group)
+    for i, (slug, label, hexc) in enumerate(items):
+        x = 160 + i * 84
+        d = re.search(r' d="([^"]+)"', (ICON_DIR / f"{slug}.svg").read_text()).group(1)
+        glyph = BRIGHT if hexc in LIGHT else "#ffffff"
+        k += f'<rect x="{x+15}" y="{y+12}" width="40" height="40" rx="11" fill="#{hexc}"/>'
+        k += f'<path transform="translate({x+24},{y+21}) scale(0.9167)" d="{d}" fill="{glyph}"/>'
+        k += text(x + 35, y + 70, label, 11, FG, 500, SANS, "0", "middle")
+(OUT / "skills.svg").write_text(svg(SW, SH, k))
+print("skills ok")

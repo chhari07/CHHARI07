@@ -35,6 +35,10 @@
 </p>
 
 <p align="center">
+  <img width="100%" src="./assets/skills.svg" alt="Skills: Claude, Anthropic SDK, OpenAI, Zod, TypeScript, JavaScript, SQL, Next.js, React, Tailwind CSS, shadcn/ui, Framer Motion, Chrome MV3, Leaflet, Node.js, Express, Clerk, Razorpay, Supabase, WhatsApp bots, PostgreSQL, Firebase, MongoDB, Vitest, GitHub Actions, Vercel, Netlify, Git, Capacitor, Android, Figma, Linux"/>
+</p>
+
+<p align="center">
   <img width="100%" src="https://streak-stats.demolab.com?user=chhari07&amp;background=f7f7f7&amp;border=dadada&amp;ring=111111&amp;fire=ee5a24&amp;currStreakNum=111111&amp;sideNums=2b2b2b&amp;currStreakLabel=111111&amp;sideLabels=6e6e6e&amp;dates=a6a6a6&amp;stroke=dadada&amp;border_radius=22&amp;card_width=880" alt="GitHub contribution streak"/>
 </p>
 
