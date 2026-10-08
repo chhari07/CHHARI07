@@ -43,3 +43,7 @@
 </p>
 
 <p align="center"><sub>National Finalist, HackGSon · Semi-Finalist, Smart India Hackathon · Winner, Reimagine Web Dev Hackathon</sub></p>
+
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=chhari07&amp;label=Profile%20views&amp;color=111111&amp;style=flat-square" alt="Profile views"/>
+</p>
