@@ -3,7 +3,8 @@
     python3 scripts/build_assets.py
 
 Builds hero.svg, about.svg and the four project cards, and adds the Apache JMeter
-tile to skills.svg (once). Standard library only.
+tile to skills.svg (once). Avatar and project art are inlined from ../portfolio/public
+(needs Pillow).
 """
 import re
 from pathlib import Path
@@ -60,13 +61,54 @@ def logo(x, y, height, fill=BRIGHT):
     return f'<g transform="translate({x - 146 * s:.2f},{y - 220 * s:.2f}) scale({s:.4f})" fill="{fill}">{"".join(paths)}</g>', 355 * s
 
 
+PORTFOLIO = ROOT.parent / "portfolio" / "public"
+
+
+def embed(src, size, quality=82):
+    """Portfolio image as a JPEG data URI (GitHub only renders images inlined in the SVG)."""
+    from PIL import Image  # only dependency outside the standard library
+    import base64, io
+    im = Image.open(src).convert("RGB")
+    im.thumbnail(size, Image.LANCZOS)
+    buf = io.BytesIO()
+    im.save(buf, "JPEG", quality=quality, optimize=True, progressive=True)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+
+
+def icon_path(slug):
+    return re.search(r' d="([^"]+)"', (ROOT / "icons" / f"{slug}.svg").read_text()).group(1)
+
+
+# Lucide outlines (24px grid), as used by the portfolio's dock and headline
+LUCIDE = {
+    "layers": '<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/>'
+              '<path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>',
+    "resume": '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/>'
+              '<path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/>',
+    "github": '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>'
+              '<path d="M9 18c-4.51 2-5-2-8-2"/>',
+    "linkedin": '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>',
+    "mail": '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+}
+
+# site.stack tiles, then the link tiles, same order and colours as the portfolio dock
+DOCK = [("nextdotjs", "#111111", "#ffffff"), ("react", "#20232a", "#61dafb"), ("typescript", "#3178c6", "#ffffff"),
+        ("nodedotjs", "#3c9a4f", "#ffffff"), ("postgresql", "#d6e6f5", "#336791"), ("claude", "#d97757", "#ffffff"),
+        None,
+        ("resume", "#f2c94c", "#1a1a1a"), ("github", "#24292f", "#ffffff"), ("linkedin", "#2d6fb8", "#ffffff"), ("mail", "url(#mailbg)", "#ffffff")]
+
+
 def hero():
-    W, H, BAR = 880, 376, 46
+    W, H, BAR, CX = 880, 590, 46, 440
     defs = (f'<clipPath id="cardclip"><rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="22"/></clipPath>'
             # glossy Tiger-style menu bar, same stops as the site's nav
             '<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>'
             '<stop offset="50%" stop-color="#f3f3f3" stop-opacity="0.9"/><stop offset="51%" stop-color="#e2e2e2" stop-opacity="0.9"/>'
-            '<stop offset="100%" stop-color="#ececec" stop-opacity="0.95"/></linearGradient>')
+            '<stop offset="100%" stop-color="#ececec" stop-opacity="0.95"/></linearGradient>'
+            '<linearGradient id="mailbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5aa9ff"/><stop offset="100%" stop-color="#2f6fde"/></linearGradient>'
+            f'<clipPath id="avatar"><circle cx="{CX}" cy="146" r="66"/></clipPath>'
+            '<filter id="avsh" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.22"/></filter>'
+            '<filter id="tile" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.08"/></filter>')
     mark, mark_w = logo(26, 13, 20)
     b = [f'<g clip-path="url(#cardclip)"><rect x="0" y="0" width="{W}" height="{BAR}" fill="url(#gloss)"/>'
          f'<line x1="0" y1="{BAR - 0.5}" x2="{W}" y2="{BAR - 0.5}" stroke="#000" stroke-opacity="0.12"/></g>',
@@ -80,51 +122,71 @@ def hero():
     b.append(text(right, 28.5, "Open to work", 13, 500, "#262626", anchor="end"))
     b.append(f'<circle cx="{right - sans_w("Open to work", 13) - 10:.0f}" cy="24" r="4" fill="{MOSS}"/>')
 
-    b += [text(30, 128, "Applied AI Engineer", 58, 600, "url(#ink)", spacing="-0.04em"),
-          text(33, 168, "& full-stack", 28, 500, MUTED, spacing="-0.02em"),
-          text(32, 212, "I ship AI features inside real products, with the guardrails that make them safe to run.", 15.5, 400, FG),
-          text(32, 236, "One gateway for every model call, spend caps, tool use, human approval and evals, load-tested with JMeter.", 14, 400, MUTED)]
-    x = 32
-    for label, dark, dot in [("Open to work · Full-time", True, True), ("Open to relocate", False, False),
-                             ("Available immediately", False, False), ("B.Tech CSE · 2026", False, False)]:
-        p, w = pill(x, 268, label, dark, dot)
-        b.append(p)
-        x += w + 10
-    b += [f'<line x1="32" y1="322" x2="848" y2="322" stroke="{LINE}"/>',
-          text(32, 344, "AI DRAFTS, HUMANS CONFIRM · STATE MACHINES OVER VIBES · MONEY IN INTEGER PAISE · FAILED CHECKS LEFT OUT", 10.5, 500, MUTED, mono=True)]
+    # avatar, name, two-line headline with the layers mark, tagline, availability
+    b += [f'<circle cx="{CX}" cy="146" r="66" fill="#d9d9d9" filter="url(#avsh)"/>',
+          f'<image x="{CX - 66}" y="80" width="132" height="132" clip-path="url(#avatar)" preserveAspectRatio="xMidYMid slice" '
+          f'href="{embed(PORTFOLIO / "avatar-me.jpg", (264, 264), 86)}"/>',
+          f'<circle cx="{CX}" cy="146" r="66" fill="none" stroke="#000" stroke-opacity="0.06"/>',
+          text(CX, 238, "Aman Kumar Chhari", 14, 500, FG, anchor="middle"),
+          # headline ends where the icon starts so the pair sits centred (icon 52 + gap 14)
+          text(CX + 316 - 66, 322, "Applied AI Engineer", 66, 600, "url(#ink)", anchor="end", spacing="-0.035em"),
+          f'<g transform="translate({CX + 316 - 52},{278}) scale(2.2)" fill="none" stroke="#2c2c2e" stroke-width="1.6" '
+          f'stroke-linecap="round" stroke-linejoin="round">{LUCIDE["layers"]}</g>',
+          text(CX, 396, "& full-stack", 66, 600, "url(#ink)", anchor="middle", spacing="-0.035em"),
+          text(CX, 442, "I ship AI features inside real products, with the guardrails that make them safe to run.", 16.5, 400, MUTED, anchor="middle"),
+          f'<circle cx="{CX - 98}" cy="471" r="3" fill="{MOSS}"/>',
+          text(CX - 88, 475, "available immediately · open to relocate", 12, 400, MUTED)]
+
+    # dock
+    T, G, SEP = 46, 10, 21
+    dw = 10 * T + 9 * G + SEP + 2 * 12
+    x0, y0 = CX - dw / 2, 506
+    b.append(f'<rect x="{x0:.1f}" y="{y0}" width="{dw}" height="{T + 20}" rx="22" fill="#fff" fill-opacity="0.75" stroke="{LINE}" filter="url(#sh)"/>')
+    x = x0 + 12
+    for item in DOCK:
+        if item is None:
+            b.append(f'<line x1="{x + 5:.1f}" y1="{y0 + 14}" x2="{x + 5:.1f}" y2="{y0 + T + 6}" stroke="{LINE}"/>')
+            x += SEP
+            continue
+        slug, bg, fg = item
+        y = y0 + 10
+        b.append(f'<rect x="{x:.1f}" y="{y}" width="{T}" height="{T}" rx="12" fill="{bg}" filter="url(#tile)"/>'
+                 f'<rect x="{x + 0.5:.1f}" y="{y + 0.5}" width="{T - 1}" height="{T - 1}" rx="11.5" fill="none" stroke="#000" stroke-opacity="0.06"/>')
+        if slug in LUCIDE:
+            b.append(f'<g transform="translate({x + 11:.1f},{y + 11})" fill="none" stroke="{fg}" stroke-width="2" '
+                     f'stroke-linecap="round" stroke-linejoin="round">{LUCIDE[slug]}</g>')
+        else:
+            b.append(f'<path transform="translate({x + 11:.1f},{y + 11})" d="{icon_path(slug)}" fill="{fg}"/>')
+        x += T + G
     return card(W, H, "".join(b), defs)
 
 
 PROJECTS = [
-    # slug, letter, colour, number, title, line 1, line 2, tags, footer
-    ("stack", "S", "#d97757", "01", "Stack", "A local-first reading app", "with spaced review of highlights",
-     ["Next.js 16", "Capacitor", "Supabase", "5 LLMs"], "JMETER · 500/500 WITH 2 ENGINES DOWN"),
-    ("closeby", "C", "#2fa35a", "02", "CloseBy", "AI-assisted hyperlocal marketplace", "for neighborhood shops",
-     ["Next.js", "Supabase", "Claude API", "Razorpay"], "LIVE · JMETER · 0 OVERSELLS IN 4/4 RUNS"),
-    ("scancart", "S", "#ee5a24", "03", "ScanCart.ai", "Parallel multi-agent trust scoring", "for Indian e-commerce",
-     ["Chrome MV3", "Node.js", "Claude API", "React"], "DEMO · JMETER · 2.8× FASTER SCANS"),
-    ("orderly", "O", "#2f6fde", "04", "Orderly", "WhatsApp ordering", "for kirana shops",
-     ["React", "Supabase", "Node.js", "BuilderBot"], "LIVE · 45 S BOT HEARTBEAT"),
+    # slug, number, title, line 1, line 2, footer (the card art comes from the portfolio's coverflow)
+    ("stack", "01", "Stack", "A local-first reading app", "with spaced review of highlights", "JMETER · 500/500 WITH 2 ENGINES DOWN"),
+    ("closeby", "02", "CloseBy", "AI-assisted hyperlocal marketplace", "for neighborhood shops", "LIVE · JMETER · 0 OVERSELLS IN 4/4 RUNS"),
+    ("scancart", "03", "ScanCart.ai", "Parallel multi-agent trust scoring", "for Indian e-commerce", "DEMO · JMETER · 2.8× FASTER SCANS"),
+    ("orderly", "04", "Orderly", "WhatsApp ordering", "for kirana shops", "LIVE · 45 S BOT HEARTBEAT"),
 ]
 
 
-def project(letter, colour, num, title, l1, l2, tags, footer):
-    b = [f'<rect x="24" y="24" width="40" height="40" rx="11" fill="{colour}"/>',
-         text(44, 50, letter, 18, 700, "#fff", anchor="middle", spacing="0"),
-         text(408, 40, num, 11, 500, MUTED, mono=True, anchor="end"),
-         text(78, 51, title, 22, 600, BRIGHT, spacing="-0.03em"),
-         text(24, 98, l1, 15, 400, FG),
-         text(24, 120, l2, 15, 400, MUTED)]
-    x = 24
-    for t in tags:
-        w = mono_w(t) + 16
-        b.append(f'<rect x="{x:.1f}" y="140" width="{w:.0f}" height="22" rx="11" fill="#fff" stroke="{LINE}"/>')
-        b.append(text(f"{x + 8:.1f}", 155, t, 11, 400, FG, mono=True, spacing="0"))
-        x += w + 6
-    b += [f'<circle cx="28" cy="181" r="3.5" fill="{MOSS}"/>',
-          text(38, 185, footer, 11, 500, MUTED, mono=True),
-          text(408, 185, "→", 15, 500, BRIGHT, anchor="end", spacing="0")]
-    return card(432, 200, "".join(b))
+def project(slug, num, title, l1, l2, footer):
+    W, H, IW, IH = 432, 362, 400, 225
+    defs = (f'<clipPath id="art"><rect x="16" y="16" width="{IW}" height="{IH}" rx="14"/></clipPath>'
+            '<filter id="artsh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity="0.16"/></filter>')
+    b = [f'<rect x="16" y="16" width="{IW}" height="{IH}" rx="14" fill="#ddd" filter="url(#artsh)"/>',
+         f'<image x="16" y="16" width="{IW}" height="{IH}" clip-path="url(#art)" preserveAspectRatio="xMidYMid slice" '
+         f'href="{embed(PORTFOLIO / "projects" / "cards" / f"{slug}.webp", (800, 450), 78)}"/>',
+         f'<rect x="16.5" y="16.5" width="{IW - 1}" height="{IH - 1}" rx="13.5" fill="none" stroke="#000" stroke-opacity="0.08"/>',
+         text(24, 274, title, 19, 600, BRIGHT, spacing="-0.03em"),
+         text(408, 272, num, 11, 500, MUTED, mono=True, anchor="end"),
+         text(24, 298, l1, 14.5, 400, FG),
+         text(24, 318, l2, 14.5, 400, MUTED),
+         f'<line x1="24" y1="331" x2="408" y2="331" stroke="{LINE}"/>',
+         f'<circle cx="28" cy="346" r="3.5" fill="{MOSS}"/>',
+         text(38, 350, footer, 11, 500, MUTED, mono=True),
+         text(408, 350, "→", 15, 500, BRIGHT, anchor="end", spacing="0")]
+    return card(W, H, "".join(b), defs)
 
 
 # "used in" rows, same as site.stack on the portfolio (no self-rated skill bars)
@@ -172,5 +234,5 @@ if __name__ == "__main__":
     (ASSETS / "hero.svg").write_text(hero())
     (ASSETS / "about.svg").write_text(about())
     for slug, *rest in PROJECTS:
-        (ASSETS / f"project-{slug}.svg").write_text(project(*rest))
+        (ASSETS / f"project-{slug}.svg").write_text(project(slug, *rest))
     print("skills.svg: added JMeter" if add_jmeter_tile() else "skills.svg: JMeter already there")
