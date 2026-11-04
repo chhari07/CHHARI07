@@ -117,7 +117,7 @@ if __name__ == "__main__":
     project("closeby", 1, "CloseBy", "AI marketplace", "Your street's shops, online. One gateway guards every AI call.", "0", "oversells, 50 buyers vs 5 units", PAL[0], "cards/closeby-wide.webp")
     project("stack", 2, "Stack", "Web + Android", "A local-first reading app that brings your highlights back.", "500/500", "with 2 AI engines down", PAL[1], "cards/stack-wide.webp")
     project("scancart", 3, "ScanCart.ai", "Chrome extension", "7 parallel AI checks behind one Trust Score for any listing.", "7", "checks, one verdict", PAL[2], "cards/scancart-wide.webp")
-    project("streetwise", 4, "Streetwise", "Multi-agent AI", "One QR on every shop, four Fetch.ai agents behind it.", "4", "agents in typed messages", PAL[3], "cards/streetwise-wide.webp")
+    project("streetwise", 4, "Streetwise", "Multi-agent AI", "One QR on every shop, four Fetch.ai agents behind it.", "4", "AI agents, one shop QR", PAL[3], "cards/streetwise-wide.webp")
     project("orderly", 5, "Orderly", "WhatsApp bot", "Run your kirana shop on WhatsApp. Buyers install nothing.", "45 s", "bot heartbeat in the owner app", PAL[4], "cards/orderly-wide.webp")
     more()
     about()
